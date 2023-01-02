@@ -11,3 +11,58 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.transport {
+  padding: 1rem;
+  background-color: #111;
+}
+
+.transport label {
+  color: #999;
+}
+
+.transport label:has(input[value="play"]:checked) {
+  animation: pulse 300ms ease-in-out infinite alternate;
+}
+
+.transport input {
+  appearance: none;
+}
+
+.matrix-playhead {
+  text-align: left;
+  position: relative;
+  width: 160px;
+  background-image: linear-gradient(to right, #999 1px, transparent 1px);
+  background-size: calc(160px/16);
+}
+
+.matrix-playhead span {
+  display: inline-block;
+  height: 5px;
+  width: 10px;
+  background-color: #f00;
+}
+
+@keyframes pulse {
+   from {
+        color: #999;
+   }
+   to {
+       color: #FFF;
+   }
+}
+
+.meter {
+  box-sizing: border-box;
+  height: 150px;
+  background-color: rgba(0,0,0,.2);
+  padding: 0.1rem;
+  transform: rotateZ(180deg);
+}
+
+.meter span {
+  width: 30px;
+  display: block;
+  background-color: #fff;
+}

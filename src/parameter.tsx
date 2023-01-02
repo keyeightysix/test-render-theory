@@ -1,12 +1,19 @@
 import { useProvider } from "./provider";
+import { renderAudio } from "./audio";
 
 export default function Parameter(props) {
 
   const [store, setStore] = useProvider();
 
   const set = (value, param) => {
-    setStore( 'sources', param, 'gain', value );
+    //setStore( 'sources', param, 'gain', value );
+    //renderAudio(store, setStore);
   }
+
+  // onMount( () => {
+  //   setStore( [...store.sources, { id: ++sourceid, source: '', gain: '' }]); 
+  //   console.log(store);
+  // });
 
   return (
     <>

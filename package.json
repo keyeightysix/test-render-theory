@@ -17,6 +17,7 @@
   "dependencies": {
     "solid-js": "^1.6.6",
     "@elemaudio/core": "^1.0.8",
-    "@elemaudio/web-renderer": "^1.0.16"
+    "@elemaudio/web-renderer": "^1.0.16",
+    "@solid-primitives/scheduled": "^1.2.0"
   }
 }
