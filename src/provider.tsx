@@ -4,6 +4,8 @@ import { createStore } from "solid-js/store";
 // [Elementary]
 import WebRenderer from "@elemaudio/web-renderer";
 
+import {renderAudio} from "./audio";
+
 // Going to have to build the sources initially, figure out 
 //how to add them and/or add them via state (currently couldn't do this)
 
@@ -32,27 +34,24 @@ export const initialize = {
   } // move to separate store later?
 }
 
-console.log(initialize);
-
 const theContext = createContext();
-
-// const [store, setStoreOrigin] = createStore<LearningModule>(initialModules);
-// const [triggerUpdate, setTriggerUpdating] = createSignal(1);
-// const setStore: typeof setStoreOrigin = (...args) => {
-//     setTriggerUpdating((v) => v + 1);
-//     setStoreOrigin(...args);
-// };
-
-//  createEffect(() => {
-//     console.log(triggerUpdate());
-//     console.log(unwrap(store));
-// });
 
 export function Provider(props) {
 
   const [store, setStore] = createStore(initialize);
 
-  const pass = [store, setStore];
+  // an additional setStore function that I can use with
+  // useContext() if I want to render the update to audio
+  const update = (toStore) => {
+    setStore(...toStore)
+    renderAudio(store, setStore);
+  }
+
+  const pass = [
+    store,
+    setStore,
+    update
+  ];
 
   return (
     <theContext.Provider value={pass}>

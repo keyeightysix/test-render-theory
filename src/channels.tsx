@@ -7,7 +7,7 @@ import { clamp } from "./utils";
 
 export default function Channels(props) {
 
-  const [store, setStore] = useProvider();
+  const [store, setStore, setStoreRender] = useProvider();
 
   const addNewChannel = () => {
     setStore({
@@ -26,22 +26,17 @@ export default function Channels(props) {
   };
 
   const selectInstrument = (id, value) => {
-    setStore( 'channels', id, 'source', value);
-    renderAudio(store, setStore);
+    setStoreRender( ['channels', id, 'source', value] );
   }
 
   const setMute = (id, value) => {
     const checked = ( value ? 'checked' : '' );
-    setStore( 'channels', id, 'mute', checked);
-    renderAudio(store, setStore);
+    setStoreRender( ['channels', id, 'mute', checked] );
   }
 
   const setGain = (id, value) => {
-
-    setStore( 'channels', id, 'gain', value);
-    const doGain = throttle( () => renderAudio(store, setStore), 350 );
+    const doGain = throttle( () => setStoreRender( ['channels', id, 'gain', value] ), 350 );
     doGain();
-    //renderAudio(store, setStore);
   }
 
   return (

@@ -13,6 +13,7 @@ import { bpmToHz } from "./utils";
  */
 export function renderAudio(state, setState) {
 
+	console.log( state );
 	//console.log( state.channels );
 
 	// Play Head | Tempo | Sequance | Time -----------------------------------------------------------------

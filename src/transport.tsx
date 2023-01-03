@@ -1,29 +1,17 @@
-/**
- * const togglePlay = () => {
-    if (playing) {
-      audioContext.suspend();
-    } else {
-      audioContext.resume();
-      playSynth();
-    }
-    setPlaying((play) => !play);
-  };
- */
 import { useProvider } from "./provider";
 import { renderAudio } from "./audio";
 
 export default function Transport(props) {
 
-	const [store, setStore] = useProvider();
-
-	console.log(store.context);
-	console.log(store.context === null);
+	const [store, setStore, setStoreRender] = useProvider();
 
 	const playback = async (checked, action) => {
 
 		if ( store.context === null ) {
 
-			// #todo move all this to a different file managing audio metering and playback features
+			// #todo move all this to a different file managing audio 
+			// # metering and playback features
+			
 			setStore( 'context', new window.AudioContext() );
 
 	        store.core.on('load', function () {
@@ -32,7 +20,6 @@ export default function Transport(props) {
 
 	            store.core.on('snapshot', function(e) {
 	            	if ( e.source === "patternPos" ) {
-	            		console.log(e);
               			setStore( 'matrixPosition', 16 * e.data );
               		}
             	});
@@ -42,6 +29,7 @@ export default function Transport(props) {
 	            	// will need to put a check in here and give meters a multi-keyed source.
 	            	// need to split channels and find a way to access store easily without 
 	            	// messing with the keys to do it.
+	            	// 
 	            	setStore( 'channels', e.source, 'meter', [e.min, e.max] );
             	});
 	        });
@@ -61,20 +49,17 @@ export default function Transport(props) {
 
     	if ( action === 'play' && checked ) {
     		store.context.resume();
-    		renderAudio(store, setStore);
-    		setStore( 'transport', 'playing', true );
+    		setStoreRender( ['transport', 'playing', true] );
     	}
 
     	if ( action === 'stop' && checked ) {
     		store.context.suspend();
-    		setStore( 'transport', 'playing', false );
+    		setStoreRender( ['transport', 'playing', false] );
     	}
 	}
 
 	const setbpm = (value) => {
-		setStore('transport', 'bpm', value); 
-
-		renderAudio(store, setStore);
+		setStoreRender( [ 'transport', 'bpm', value] );
 	}
 
 	return (

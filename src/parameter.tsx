@@ -8,6 +8,8 @@ export default function Parameter(props) {
   const set = (value, param) => {
     //setStore( 'sources', param, 'gain', value );
     //renderAudio(store, setStore);
+    
+    setStore.update( { ['sources'][param]['gain'] value }, true );
   }
 
   // onMount( () => {
